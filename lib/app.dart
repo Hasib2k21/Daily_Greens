@@ -1,11 +1,9 @@
-
-import 'package:daily_greens/presentation/ui/screens/onboarding.dart';
-import 'package:daily_greens/presentation/ui/screens/sign_in_screen.dart';
-import 'package:daily_greens/presentation/ui/screens/splash_screen.dart';
+import 'package:daily_greens/presentation/ui/screens/log_in_screen.dart';
+import 'package:daily_greens/presentation/ui/screens/set_location.dart';
+import 'package:daily_greens/presentation/ui/screens/sign_up_screen.dart';
 import 'package:daily_greens/presentation/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-
 
 import 'controller_binders.dart';
 
@@ -16,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SignInScreen(),
+      home: SignUpScreen(),
       initialBinding: ControllerBinders(),
       theme: ThemeData(
           colorSchemeSeed: AppColors.themeColor,
@@ -27,16 +25,15 @@ class MyApp extends StatelessWidget {
           textTheme: const TextTheme(
             headlineLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
           ),
-          inputDecorationTheme: InputDecorationTheme(
-            border: _outlineInputBorder(),
-            enabledBorder: _outlineInputBorder(),
-            focusedBorder: _outlineInputBorder(),
-            errorBorder: _outlineInputBorder(Colors.red),
-            hintStyle: const TextStyle(
-                fontWeight: FontWeight.w400
+          inputDecorationTheme: const InputDecorationTheme(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
             ),
-            contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+            ),
+            hintStyle: TextStyle(fontWeight: FontWeight.w400),
+            contentPadding: EdgeInsets.symmetric(horizontal: 1, vertical: 8),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
@@ -58,17 +55,7 @@ class MyApp extends StatelessWidget {
               titleTextStyle: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
-                  fontWeight: FontWeight.w500
-              )
-          )
-      ),
-    );
-  }
-
-  OutlineInputBorder _outlineInputBorder([Color? color]) {
-    return OutlineInputBorder(
-      borderSide: BorderSide(color: color ?? AppColors.themeColor, width: 1),
-      borderRadius: BorderRadius.circular(8),
+                  fontWeight: FontWeight.w500))),
     );
   }
 }
