@@ -1,8 +1,11 @@
+import 'package:daily_greens/presentation/ui/screens/account/account_screen.dart';
+import 'package:daily_greens/presentation/ui/screens/cart/cart_screen.dart';
+import 'package:daily_greens/presentation/ui/screens/explore/explore_screen.dart';
+import 'package:daily_greens/presentation/ui/screens/favourite/favourite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../state_holders/bottom_navbar_controller.dart';
-import 'home_screen.dart';
+import 'home/home_screen.dart';
 
 class BottomNavScreen extends StatefulWidget {
   const BottomNavScreen({super.key});
@@ -17,10 +20,10 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
   final List<Widget> _screen = [
     const HomeScreen(),
-    const HomeScreen(),
-    const HomeScreen(),
-    const HomeScreen(),
-    const HomeScreen(),
+    const ExploreScreen(),
+    const CartScreen(),
+    const FavouriteScreen(),
+    const AccountScreen()
   ];
 
   @override
