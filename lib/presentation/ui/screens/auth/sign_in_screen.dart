@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../utils/app_colors.dart';
-import '../utils/assets_path.dart';
+import '../../utils/app_colors.dart';
+import '../../utils/assets_path.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -59,15 +59,18 @@ class _SignInScreenState extends State<SignInScreen> {
               const SizedBox(height: 40),
               _buildOrSizedBox(),
               const SizedBox(height: 50),
-              _buildFbElevatedButton('Log In With Google', AssetsPath.google,Color(0xFF5383EC)),
+              _buildFbElevatedButton(
+                  'Log In With Google', AssetsPath.google, Color(0xFF5383EC)),
               const SizedBox(height: 12),
-              _buildFbElevatedButton('Log In With Facebook', AssetsPath.fb,Color(0xFF4A66AC)),
+              _buildFbElevatedButton(
+                  'Log In With Facebook', AssetsPath.fb, Color(0xFF4A66AC)),
             ],
           ),
         ),
       ),
     );
   }
+
   Widget _buildOrSizedBox() {
     return const SizedBox(
       width: 343,
@@ -83,7 +86,6 @@ class _SignInScreenState extends State<SignInScreen> {
             style: TextStyle(
               color: Color(0xFF404040),
               fontSize: 12,
-              fontFamily: 'Manrope',
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -96,12 +98,13 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Widget _buildFbElevatedButton(String text, String image,color) {
+  Widget _buildFbElevatedButton(String text, String image, color) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: color, // Set background color to blue
         foregroundColor: Colors.white, // Set text and icon color to white
-        side: const BorderSide(color: AppColors.themeColor, width: 1), // Add border
+        side: const BorderSide(
+            color: AppColors.themeColor, width: 1), // Add border
       ),
       onPressed: () {},
       child: Wrap(
@@ -111,16 +114,16 @@ class _SignInScreenState extends State<SignInScreen> {
           Image.asset(
             image,
             height: 20,
-            color: Colors.white, // Ensures the image color matches the foreground
+            color:
+                Colors.white, // Ensures the image color matches the foreground
           ),
           Text(
             text,
-            style: const TextStyle(color: Colors.white), // Text color set to white
+            style:
+                const TextStyle(color: Colors.white), // Text color set to white
           ),
         ],
       ),
     );
   }
-
-
 }

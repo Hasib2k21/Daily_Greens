@@ -2,17 +2,16 @@ import 'package:daily_greens/presentation/ui/utils/assets_path.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../utils/app_colors.dart';
 
-import '../utils/app_colors.dart';
-
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class LogInScreen extends StatefulWidget {
+  const LogInScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<LogInScreen> createState() => _LogInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,29 +39,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   const SizedBox(height: 50),
                   Text(
-                    'Sign Up',
+                    'Logging',
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'Enter your credentials to continue',
+                    'Enter your emails and password',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 40),
-                  Text(
-                    'Username',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: Colors.grey.shade600),
-                  ),
-                  const SizedBox(height: 8),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Your Full Name',
-                    ),
-                  ),
-                  const SizedBox(height: 20),
                   Text(
                     'Email',
                     style: Theme.of(context)
@@ -74,10 +59,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextFormField(
                     decoration: const InputDecoration(
                       hintText: 'Enter Your Email Address',
-                      suffixIcon: Icon(
-                        Icons.check,
-                        color: AppColors.themeColor,
-                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -97,13 +78,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     obscureText: true,
                   ),
                   const SizedBox(height: 12),
-                  const Text('By continuing you agree to our Terms of Service and Privacy Policy.'),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [Text('Forgot Password?')],
+                  ),
                   const SizedBox(height: 30),
                   SizedBox(
                       height: 60,
                       child: ElevatedButton(
-                          onPressed: () {}, child: const Text('Sign Up'))),
-                  const SizedBox(height: 26),
+                          onPressed: () {}, child: const Text('Log In'))),
+                  const SizedBox(height: 36),
                   Center(
                     child: Column(
                       children: [
@@ -113,10 +97,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 .textTheme
                                 .bodyLarge
                                 ?.copyWith(color: Colors.black87),
-                            text: "Already have an account? ",
+                            text: "Don't have an account? ",
                             children: [
                               TextSpan(
-                                text: 'LogIn',
+                                text: 'Sign up',
                                 style: const TextStyle(
                                     color: AppColors.themeColor),
                                 recognizer: TapGestureRecognizer()

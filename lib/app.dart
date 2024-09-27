@@ -1,6 +1,6 @@
-import 'package:daily_greens/presentation/ui/screens/log_in_screen.dart';
-import 'package:daily_greens/presentation/ui/screens/set_location.dart';
-import 'package:daily_greens/presentation/ui/screens/sign_up_screen.dart';
+import 'package:daily_greens/presentation/ui/screens/auth/log_in_screen.dart';
+import 'package:daily_greens/presentation/ui/screens/auth/set_location.dart';
+import 'package:daily_greens/presentation/ui/screens/auth/sign_up_screen.dart';
 import 'package:daily_greens/presentation/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
