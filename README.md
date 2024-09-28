@@ -9,7 +9,8 @@ Completed Design Part...>>>>>>
 <br>
 ![image](https://github.com/user-attachments/assets/54da6f88-26ae-4fbd-bb3c-68a8d75af477)
 <br>
-![image](https://github.com/user-attachments/assets/9bbe637a-fefd-45f3-bee8-05674139eb63)
-![image](https://github.com/user-attachments/assets/9afe992b-f069-4c1b-856c-5125d4db3cba)
+![image](https://github.com/user-attachments/assets/9bbe637a-fefd-45f3-bee8-05674139eb63)![image](https://github.com/user-attachments/assets/8ae3b48f-03c7-4082-b133-3b0bc16049b3)
+
+
 </br>
 
