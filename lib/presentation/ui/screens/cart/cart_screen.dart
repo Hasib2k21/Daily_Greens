@@ -92,10 +92,7 @@ class CartScreen extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.delete),
           onPressed: () {
-            // Only delete the product if quantity is zero
-            if ((cartController.quantity[product] ?? 0) == 0) {
-              cartController.deleteProduct(product); // Delete if quantity is 0
-            }
+            cartController.deleteProduct(product); // Always delete product
           },
         ),
       ],
@@ -120,30 +117,30 @@ class CartScreen extends StatelessWidget {
         _buildCircularIconButton(
           Icons.remove,
           (cartController.quantity[product] ?? 0) >
-                  0 // Enable if qty is greater than 0
+              1 // Enable if qty is greater than 1
               ? () => cartController.removeFromCart(product)
-              : null, // Disable if qty is 0
+              : null, // Disable if qty is 1
         ),
         const SizedBox(width: 8),
         // Quantity Text
         Obx(() => Text(
-              '${cartController.quantity[product] ?? 0}', // Display quantity
-              style: const TextStyle(fontSize: 16),
-            )),
+          '${cartController.quantity[product] ?? 0}', // Display quantity
+          style: const TextStyle(fontSize: 16),
+        )),
         const SizedBox(width: 8),
         // Circular Container for the Add Button
         _buildCircularIconButton(
           Icons.add,
-          () => cartController.addToCart(product, 1),
+              () => cartController.addToCart(product, 1),
           color: AppColors.themeColor,
         ),
         Expanded(child: Container()),
         // Product Price at the End
         Obx(() => Text(
-              '\$${(product.productPrice * (cartController.quantity[product] ?? 0)).toStringAsFixed(2)}',
-              // Calculate total price
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            )),
+          '\$${(product.productPrice * (cartController.quantity[product] ?? 0)).toStringAsFixed(2)}',
+          // Calculate total price
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        )),
       ],
     );
   }
@@ -170,13 +167,13 @@ class CartScreen extends StatelessWidget {
           // Add your onPressed functionality, like navigating to the checkout screen
         },
         child: Obx(() => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Total: \$${cartController.totalPrice.toStringAsFixed(2)}',
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            )),
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Total: \$${cartController.totalPrice.toStringAsFixed(2)}',
+            style:
+            const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        )),
       ),
     );
   }

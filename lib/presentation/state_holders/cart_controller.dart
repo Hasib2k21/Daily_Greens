@@ -19,10 +19,9 @@ class CartController extends GetxController {
   }
 
   void removeFromCart(Product product) {
-    // Check if the product exists in the cart
-    if (quantity[product] != null && quantity[product]! > 0) {
+    // This method now only decrements the quantity if it's greater than 1
+    if (quantity[product] != null && quantity[product]! > 1) {
       quantity[product] = quantity[product]! - 1; // Decrement quantity
-      // No need to delete the product; just keep it in the cart with quantity 0
       updateTotalPrice(); // Update total price after removing
     }
     update(); // Ensure GetX updates the UI
