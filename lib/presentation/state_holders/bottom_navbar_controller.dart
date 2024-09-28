@@ -12,7 +12,7 @@ class BottomNavbarController extends GetxController {
     }
   }
 
-  void navigateToHome() {
+  void backToHome() {
     changeIndex(0); // Assuming home is at index 0
   }
 

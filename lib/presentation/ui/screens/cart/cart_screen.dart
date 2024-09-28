@@ -1,21 +1,31 @@
+import 'package:daily_greens/presentation/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../../state_holders/bottom_navbar_controller.dart';
 import '../../../state_holders/cart_controller.dart';
+import '../../utils/home/product.dart';
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.put(CartController());
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cart'),
-      ),
-      body: Obx(() {
-        if (cartController.cartItems.isEmpty) {
-          return const Center(child: Text('Your cart is empty'));
-        } else {
+    return WillPopScope(
+      onWillPop: () async {
+        backToHome();
+        return false; // Prevents default pop behavior
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Center(child: Text('My Cart')),
+        ),
+        body: Obx(() {
+          if (cartController.cartItems.isEmpty) {
+            return const Center(child: Text('Your cart is empty'));
+          }
+
           return Column(
             children: [
               Expanded(
@@ -26,69 +36,31 @@ class CartScreen extends StatelessWidget {
                     final int qty = cartController.quantity[product] ?? 0;
 
                     return Card(
+                      color: Colors.grey.shade100,
                       margin: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 16),
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Row(
                           children: [
+                            // Product Image
                             Image.asset(
                               product.img,
-                              height: 60,
-                              width: 60,
-                              fit: BoxFit.cover,
+                              height: 80,
+                              width: 70,
+                              fit: BoxFit.scaleDown,
                             ),
                             const SizedBox(width: 16),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    product.name,
-                                    style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        icon: const Icon(Icons.remove),
-                                        onPressed: qty > 1
-                                            ? () => cartController
-                                                .removeFromCart(product)
-                                            : null,
-                                      ),
-                                      Obx(() => Text(
-                                            '${cartController.quantity[product]}',
-                                            // Dynamically update the qty
-                                            style:
-                                                const TextStyle(fontSize: 16),
-                                          )),
-                                      IconButton(
-                                        icon: const Icon(Icons.add),
-                                        onPressed: () {
-                                          cartController.addToCart(product, 1);
-                                        },
-                                      ),
-                                    ],
-                                  ),
+                                  _buildProductHeader(product, cartController),
+                                  _buildProductDetails(product),
+                                  _buildQuantityControls(
+                                      product, qty, cartController),
                                 ],
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            Obx(() => Text(
-                                  '\$${(product.productPrice * cartController.quantity[product]!).toStringAsFixed(2)}',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                )),
-                            const SizedBox(width: 16),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () {
-                                cartController.deleteProduct(product);
-                              },
                             ),
                           ],
                         ),
@@ -97,28 +69,119 @@ class CartScreen extends StatelessWidget {
                   },
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                // Adding margin
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Obx(() => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Total: \$${cartController.totalPrice.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      )),
-                ),
-              ),
-              const SizedBox(
-                height: 12,
-              )
+              _buildTotalPriceButton(cartController),
+              const SizedBox(height: 12),
             ],
           );
-        }
-      }),
+        }),
+      ),
     );
+  }
+
+  Widget _buildProductHeader(Product product, CartController cartController) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // Product Name
+        Text(
+          product.name,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(width: 5),
+        // Delete Product Button
+        IconButton(
+          icon: const Icon(Icons.delete),
+          onPressed: () {
+            // Only delete the product if quantity is zero
+            if ((cartController.quantity[product] ?? 0) == 0) {
+              cartController.deleteProduct(product); // Delete if quantity is 0
+            }
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProductDetails(Product product) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('${product.quantity} kg, Price'),
+        const SizedBox(height: 8),
+      ],
+    );
+  }
+
+  Widget _buildQuantityControls(
+      Product product, int qty, CartController cartController) {
+    return Row(
+      children: [
+        // Circular Container for the Remove Button
+        _buildCircularIconButton(
+          Icons.remove,
+          (cartController.quantity[product] ?? 0) >
+                  0 // Enable if qty is greater than 0
+              ? () => cartController.removeFromCart(product)
+              : null, // Disable if qty is 0
+        ),
+        const SizedBox(width: 8),
+        // Quantity Text
+        Obx(() => Text(
+              '${cartController.quantity[product] ?? 0}', // Display quantity
+              style: const TextStyle(fontSize: 16),
+            )),
+        const SizedBox(width: 8),
+        // Circular Container for the Add Button
+        _buildCircularIconButton(
+          Icons.add,
+          () => cartController.addToCart(product, 1),
+          color: AppColors.themeColor,
+        ),
+        Expanded(child: Container()),
+        // Product Price at the End
+        Obx(() => Text(
+              '\$${(product.productPrice * (cartController.quantity[product] ?? 0)).toStringAsFixed(2)}',
+              // Calculate total price
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            )),
+      ],
+    );
+  }
+
+  Widget _buildCircularIconButton(IconData icon, VoidCallback? onPressed,
+      {Color? color}) {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.grey[200],
+      ),
+      child: IconButton(
+        icon: Icon(icon, color: color),
+        onPressed: onPressed,
+      ),
+    );
+  }
+
+  Widget _buildTotalPriceButton(CartController cartController) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      child: ElevatedButton(
+        onPressed: () {
+          // Add your onPressed functionality, like navigating to the checkout screen
+        },
+        child: Obx(() => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Total: \$${cartController.totalPrice.toStringAsFixed(2)}',
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            )),
+      ),
+    );
+  }
+
+  void backToHome() {
+    Get.find<BottomNavbarController>().backToHome();
   }
 }
