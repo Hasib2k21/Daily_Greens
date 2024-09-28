@@ -5,9 +5,7 @@ import 'package:daily_greens/presentation/ui/widget/home/section_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_utils/src/platform/platform.dart';
+
 import '../../utils/home/product.dart';
 import '../../widget/home/home_banner_slider.dart';
 import '../../widget/home/horizontal_item_list_view.dart';

@@ -19,19 +19,20 @@ class CartController extends GetxController {
   }
 
   void removeFromCart(Product product) {
-    // This method now only decrements the quantity if it's greater than 1
+    // Check if the quantity is greater than 1 before decrementing
     if (quantity[product] != null && quantity[product]! > 1) {
       quantity[product] = quantity[product]! - 1; // Decrement quantity
-      updateTotalPrice(); // Update total price after removing
     }
+    // Do not remove the product, even if the quantity is 1
+    updateTotalPrice(); // Update total price after decrementing
     update(); // Ensure GetX updates the UI
   }
 
   void deleteProduct(Product product) {
-    cartItems.remove(product); // Remove from cartItems
-    quantity.remove(product); // Also remove from quantity mapping
-    updateTotalPrice(); // Update total price
-    update(); // Update the state
+    cartItems.remove(product); // Explicit removal by the user
+    quantity.remove(product); // Remove from the quantity mapping as well
+    updateTotalPrice(); // Update the total price
+    update(); // Ensure the state is updated
   }
 
   void updateTotalPrice() {

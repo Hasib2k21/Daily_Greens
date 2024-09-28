@@ -5,11 +5,16 @@ import '../../utils/app_colors.dart';
 import '../../utils/home/product.dart';
 import '../../widget/home/product_detail.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
   final Product product;
 
   const ProductDetailsScreen({super.key, required this.product});
 
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.put(CartController());
@@ -28,14 +33,14 @@ class ProductDetailsScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(product.name,
+                    Text(widget.product.name,
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const Icon(Icons.favorite_border_rounded),
                   ],
                 ),
                 const SizedBox(height: 8),
-                Text('${product.quantity} kg, Price'),
+                Text('${widget.product.quantity} kg, Price'),
                 const SizedBox(height: 28),
                 _buildQuantityAndPrice(quantity),
                 const SizedBox(height: 25),
@@ -43,10 +48,10 @@ class ProductDetailsScreen extends StatelessWidget {
                 const SizedBox(height: 25),
                 ElevatedButton(
                   onPressed: () {
-                    cartController.addToCart(product, quantity.value);
+                    cartController.addToCart(widget.product, quantity.value);
                     Get.snackbar(
                       'Success',
-                      '${product.name} added to cart!',
+                      '${widget.product.name} added to cart!',
                       snackPosition: SnackPosition.TOP,
                       backgroundColor: Colors.grey,
                       colorText: Colors.white,
@@ -96,7 +101,7 @@ class ProductDetailsScreen extends StatelessWidget {
           const SizedBox(height: 8),
           Center(
             child: Image.asset(
-              product.img,
+              widget.product.img,
               height: 180,
               fit: BoxFit.scaleDown,
             ),
@@ -146,7 +151,7 @@ class ProductDetailsScreen extends StatelessWidget {
               ],
             )),
         Obx(() => Text(
-              '\$${(product.productPrice * quantity.value).toStringAsFixed(2)}',
+              '\$${(widget.product.productPrice * quantity.value).toStringAsFixed(2)}',
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             )),
       ],

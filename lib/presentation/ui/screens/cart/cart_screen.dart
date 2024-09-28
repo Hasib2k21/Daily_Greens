@@ -1,21 +1,27 @@
 import 'package:daily_greens/presentation/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../state_holders/bottom_navbar_controller.dart';
 import '../../../state_holders/cart_controller.dart';
 import '../../utils/home/product.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.put(CartController());
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (value){
         backToHome();
-        return false; // Prevents default pop behavior
       },
       child: Scaffold(
         appBar: AppBar(
@@ -117,30 +123,30 @@ class CartScreen extends StatelessWidget {
         _buildCircularIconButton(
           Icons.remove,
           (cartController.quantity[product] ?? 0) >
-              1 // Enable if qty is greater than 1
+                  1 // Enable if qty is greater than 1
               ? () => cartController.removeFromCart(product)
               : null, // Disable if qty is 1
         ),
         const SizedBox(width: 8),
         // Quantity Text
         Obx(() => Text(
-          '${cartController.quantity[product] ?? 0}', // Display quantity
-          style: const TextStyle(fontSize: 16),
-        )),
+              '${cartController.quantity[product] ?? 0}', // Display quantity
+              style: const TextStyle(fontSize: 16),
+            )),
         const SizedBox(width: 8),
         // Circular Container for the Add Button
         _buildCircularIconButton(
           Icons.add,
-              () => cartController.addToCart(product, 1),
+          () => cartController.addToCart(product, 1),
           color: AppColors.themeColor,
         ),
         Expanded(child: Container()),
         // Product Price at the End
         Obx(() => Text(
-          '\$${(product.productPrice * (cartController.quantity[product] ?? 0)).toStringAsFixed(2)}',
-          // Calculate total price
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        )),
+              '\$${(product.productPrice * (cartController.quantity[product] ?? 0)).toStringAsFixed(2)}',
+              // Calculate total price
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            )),
       ],
     );
   }
@@ -167,13 +173,22 @@ class CartScreen extends StatelessWidget {
           // Add your onPressed functionality, like navigating to the checkout screen
         },
         child: Obx(() => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'Total: \$${cartController.totalPrice.toStringAsFixed(2)}',
-            style:
-            const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        )),
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Text(
+                    'Go to Checkout',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Total: \$${cartController.totalPrice.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            )),
       ),
     );
   }
