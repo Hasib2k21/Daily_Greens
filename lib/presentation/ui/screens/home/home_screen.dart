@@ -1,9 +1,13 @@
+import 'package:daily_greens/presentation/ui/screens/home/product_details_screen.dart';
 import 'package:daily_greens/presentation/ui/utils/assets_path.dart';
 import 'package:daily_greens/presentation/ui/widget/home/search_text_field.dart';
 import 'package:daily_greens/presentation/ui/widget/home/section_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_utils/src/platform/platform.dart';
 import '../../utils/home/product.dart';
 import '../../widget/home/home_banner_slider.dart';
 import '../../widget/home/horizontal_item_list_view.dart';
@@ -52,7 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 12),
               const HomeBannerSlider(),
               const SizedBox(height: 8),
-              SectionHeader(title: "Exclusive Offer", onTap: () {}),
+              SectionHeader(title: "Exclusive Offer", onTap: () {
+              }),
               const SizedBox(height: 8),
               HorizontalProductListView(products: exclusiveOfferProducts),
               const SizedBox(height: 12),

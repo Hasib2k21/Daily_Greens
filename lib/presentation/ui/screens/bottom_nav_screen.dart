@@ -21,7 +21,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   final List<Widget> _screen = [
     const HomeScreen(),
     const ExploreScreen(),
-    const CartScreen(),
+      CartScreen(),
     const FavouriteScreen(),
     const AccountScreen()
   ];

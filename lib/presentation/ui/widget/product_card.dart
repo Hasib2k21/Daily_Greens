@@ -1,4 +1,7 @@
+import 'package:daily_greens/presentation/ui/screens/home/product_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../utils/home/product.dart';
 
 class ProductCard extends StatelessWidget {
@@ -9,7 +12,9 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(()=>ProductDetailsScreen(product: product));
+      },
       child: Container(
         width: 180,
         height: 260,
