@@ -2,6 +2,10 @@
 import 'package:daily_greens/presentation/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import 'onboarding.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _movetoNextScreen() async {
     await Future.delayed(const Duration(seconds: 2));
-   // Get.off(() => const BottomNavScreen());
+    Get.off(() => const Onboarding());
   }
 
   @override

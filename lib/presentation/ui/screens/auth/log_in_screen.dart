@@ -1,7 +1,10 @@
+import 'package:daily_greens/presentation/ui/screens/auth/sign_up_screen.dart';
+import 'package:daily_greens/presentation/ui/screens/bottom_nav_screen.dart';
 import 'package:daily_greens/presentation/ui/utils/assets_path.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import '../../utils/app_colors.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -86,7 +89,9 @@ class _LogInScreenState extends State<LogInScreen> {
                   SizedBox(
                       height: 60,
                       child: ElevatedButton(
-                          onPressed: () {}, child: const Text('Log In'))),
+                          onPressed: () {
+                            Get.offAll(()=>const BottomNavScreen());
+                          }, child: const Text('Log In'))),
                   const SizedBox(height: 36),
                   Center(
                     child: Column(
@@ -104,7 +109,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 style: const TextStyle(
                                     color: AppColors.themeColor),
                                 recognizer: TapGestureRecognizer()
-                                  ..onTap = () {},
+                                  ..onTap = () {Get.to(()=>SignUpScreen());},
                               ),
                             ],
                           ),
