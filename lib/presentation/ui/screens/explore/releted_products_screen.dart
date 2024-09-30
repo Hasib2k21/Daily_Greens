@@ -1,5 +1,8 @@
+import 'package:daily_greens/presentation/ui/screens/explore/search_and_filter_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../utils/home/product.dart';
 import '../../widget/product_card.dart';
 
@@ -35,7 +38,7 @@ class RelatedProductsScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.tune), // Filter icon
             onPressed: () {
-
+             Get.to(()=>const SearchAndFilterScreen());
             },
           ),
         ],
